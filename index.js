@@ -1,16 +1,53 @@
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
 const server = http.createServer((req, res) => {
-  console.log(req.url);
+  if (req.method === 'GET') {
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=utf-8'
+    });
 
-  res.write('<h1>Hello from NodeJS<h1>');
-  res.write('<h2>Hello from NodeJS<h2>');
-  res.write('<h3>Hello from NodeJS<h3>');
-  res.end(`
-    <div style="background: red; width: 200px; height: 200px">
-        <h1>Test</h1>
-    </div>
-  `);
+    if (req.url === '/') {
+      fs.readFile(
+        path.join(__dirname, 'views', 'index.html'),
+        'utf-8',
+        (err, data) => {
+          if (err) throw err;
+
+          res.end(data);
+        }
+      );
+    } else if (req.url === '/about') {
+      fs.readFile(
+        path.join(__dirname, 'views', 'about.html'),
+        'utf-8',
+        (err, data) => {
+          if (err) throw err;
+
+          res.end(data);
+        }
+      );
+    }
+  } else if (req.method === 'POST') {
+    const body = [];
+
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=utf-8'
+    });
+
+    req.on('data', data => {
+      body.push(Buffer.from(data));
+    });
+
+    req.on('end', () => {
+      const message = body.toString().split('=')[1];
+
+      res.end(`
+        <h1>Ваше сообщение: ${message.toString()}</h1>
+      `);
+    });
+  }
 });
 
 server.listen(3000, () => {
