@@ -1,0 +1,32 @@
+{
+  "name": "udemy-node",
+  "version": "1.0.0",
+  "description": "nodejs lessons",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cricket-creator/udemy-node.git"
+  },
+  "keywords": [
+    "nodejs",
+    "js"
+  ],
+  "author": "Pavel Rakhaev <rakhaevpavel@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cricket-creator/udemy-node/issues"
+  },
+  "homepage": "https://github.com/cricket-creator/udemy-node#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.2",
+    "uuid": "^8.3.2"
+  }
+}
